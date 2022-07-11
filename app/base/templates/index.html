@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %} Index {% endblock title %}
+
+<!-- Specific page css goes here! -->
+{% block stylesheets %}
+    <link type="text/css" href="./static/css/main.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+    <main>
+        <section class="section-header bg-secondary" id="home">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-12 col-md-7 text-center text-md-left">
+                        <h1 class="header-title mb-4 text-white">Flask App Skeleton</h1>
+                        <p class="lead mb-4 text-muted">Skeleton of a Python project with the Flask framework</p>
+                        <div class="d-flex justify-content-center">
+                            <a class="github-icon mb-4 text-white d-flex align-center" href="https://github.com/carloscastillo10/skeleton-flask-python-app" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </a>
+                        </div> 
+                    </div>
+                    <div class="col-12 col-md-5 d-none d-md-block text-center"><img src="./static/images/home.svg" alt=""></div>
+                </div>
+            </div> 
+        </section>
+    </main>
+{% endblock content %}
