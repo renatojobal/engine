@@ -4,6 +4,7 @@ from app.base import blueprint
 from flask import render_template, Flask, request
 import spacy
 import requests as prequest
+from re import search
 
 
 @blueprint.route('/')
@@ -32,6 +33,7 @@ def nlp():
         if token.pos_ == 'NOUN' or token.pos_ == 'PROPN':
             nouns_list.append(token.text)
             nouns_as_text += f"{token.text} "
+            
     
 
     print(nouns_list)
@@ -40,17 +42,25 @@ def nlp():
     URL = "https://api.dbpedia-spotlight.org/en/annotate"
     PARAMS = {'text': nouns_as_text}
 
-    response = prequest.get(url=URL, params=PARAMS, headers={'accept': 'application/json'})
+    original_response = prequest.get(url=URL, params=PARAMS, headers={'accept': 'application/json'}).json()
     
-    resources = response.json()["Resources"]
+    resources = original_response["Resources"]
 
-    for key in resources:
-        print(key)
-    
+    for index, value in enumerate(resources):
+        # Check if the key uri is corresponding to an annotated entity
+        for noun in nouns_list:
+
+            if(search(noun, value['@surfaceForm'])):
+                # Add the as noun to the original response""
+                value["tag"] = 'noun'
+                original_response["Resources"][index] = value
+
+                print(f"SUBSTRING FOUND {noun}")
+        
   
 
    
-    return "<p>Hello world </p>"
+    return original_response
 
 
 @blueprint.route("/wake_up", methods=["GET"])
