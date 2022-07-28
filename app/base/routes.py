@@ -45,7 +45,7 @@ def nlp():
     original_response = prequest.get(url=URL, params=PARAMS, headers={'accept': 'application/json'}).json()
     
     resources = original_response["Resources"]
-
+    untagged_words = nouns_list.copy()
     for index, value in enumerate(resources):
         # Check if the key uri is corresponding to an annotated entity
         for noun in nouns_list:
@@ -55,9 +55,13 @@ def nlp():
                 value["tag"] = 'noun'
                 original_response["Resources"][index] = value
 
-                print(f"SUBSTRING FOUND {noun}")
+                untagged_words.remove(noun)
+
         
-  
+    # Add the other words that were not found in dbpedia
+    for untagged in untagged_words:
+        original_response["Resources"].append({"@surfaceForm" : untagged, "tag": "noun"})
+        
 
    
     return original_response
