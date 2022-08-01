@@ -115,8 +115,8 @@ def endpoint_rdf():
     # Todo
 
     # Build response
-    data : str = '{"result_rdf": '+result_rdf.text+'}'
-    return Response(data, 
+    
+    return Response(result_rdf.text, 
         status=200, 
         mimetype= f'application/{target_format}'
     )
