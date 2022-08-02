@@ -143,10 +143,29 @@ def _get_rdf_from_text(target_text: str = None, prefix : str = "fred:", namespac
 
         return response
 
+@blueprint.route("/image_rdf", methods=["GET"])
+def endpoint_image_rdf():
+    """
+    """
+    # Get params
+    args = request.args
+    
+    target_rdf = args.get("rdf")
 
 
+    # Obtain the rdf
+    result_rdf = _get_image_from_rdf_from_web(target_rdf=target_rdf)
 
-def _get_image_from_rdf_from_web(target_rdf: str, format :str ="xml"):
+    # Obtain the image
+    # Todo
+
+    # Build response
+    
+    return Response(result_rdf.text, 
+        status=200
+    )
+
+def _get_image_from_rdf_from_web(target_rdf: str, format : str ="json"):
     """
     Using an endpoint
     """
