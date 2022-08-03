@@ -3,6 +3,9 @@ from app.config import config_dict
 from app import create_app
 from decouple import config
 from flask_migrate import Migrate
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
 
 # WARNING: Don't run with debug turned on in production.
 DEBUG = config('DEBUG', default=True, cast=bool)

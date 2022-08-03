@@ -9,7 +9,7 @@ from re import search
 import logging
 import graphviz
 
-
+import os
 
 @blueprint.route('/')
 @blueprint.route('/index')
@@ -135,8 +135,9 @@ def _get_rdf_from_text(target_text: str = None, prefix : str = "fred:", namespac
             'namespace' : namespace
         }
         print(format)
+        fred_token = os.getenv("FRED_TOKEN")
         headers = {
-            'Authorization' : 'Bearer 9c4fa397-188b-301f-90a3-4399c6bf3ccf',
+            'Authorization' : f'Bearer {fred_token}',
             'Accept' : f'application/rdf+{format}'
         }
         response = request_maker.get(url=fred_url, params=params, headers=headers)
